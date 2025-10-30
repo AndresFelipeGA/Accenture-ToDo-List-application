@@ -1,0 +1,7 @@
+{
+  "name": "Accenture-ToDo-List",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
