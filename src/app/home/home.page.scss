@@ -1,27 +1,645 @@
-#container {
+// Category filter with Accenture styling
+.category-filter {
+  padding: 20px 16px 24px 16px; // Added more bottom padding
+  margin-bottom: 16px; // Added margin bottom for separation
+  background: var(--ion-color-step-50);
+  border-bottom: 1px solid var(--ion-color-step-150);
+  
+  ion-segment {
+    --background: var(--ion-color-step-100);
+    --color-checked: white;
+    --background-checked: var(--accenture-gradient-primary);
+    --border-radius: var(--accenture-radius-md);
+    border-radius: var(--accenture-radius-md);
+    padding: 4px;
+    box-shadow: var(--accenture-shadow-sm);
+  }
+
+  ion-segment-button {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    min-height: 52px; // Increased height to prevent collision
+    border-radius: var(--accenture-radius-sm);
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Add internal padding to the button content
+    .button-inner {
+      padding: 8px 0; // Added vertical padding inside button
+    }
+
+    &.segment-button-checked {
+      box-shadow: var(--accenture-shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    ion-label {
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.025em;
+      padding: 4px 0; // Added padding to label
+    }
+
+    ion-badge {
+      margin-left: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: var(--accenture-radius-sm);
+      background: rgba(255, 255, 255, 0.2);
+      color: white !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      .segment-button-checked & {
+        background: rgba(255, 255, 255, 0.35);
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      // Enhanced metallic effect for category-specific badges
+      &[style*="background-color"] {
+        position: relative;
+        overflow: hidden;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(0, 0, 0, 0.1) 100%
+          );
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}
+
+// Task items with Accenture corporate styling
+.task-item {
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --min-height: 88px;
+  margin: 0 16px 16px 16px;
+  border-radius: var(--accenture-radius-lg);
+  background: var(--accenture-gradient-surface);
+  border: 1px solid rgba(161, 0, 255, 0.15);
+  box-shadow: var(--accenture-shadow-md);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // Subtle gradient overlay for depth
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accenture-gradient-primary);
+    opacity: 0.3;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(161, 0, 255, 0.4);
+    box-shadow: var(--accenture-shadow-lg);
+    
+    &::before {
+      opacity: 0.6;
+    }
+  }
+
+  ion-checkbox {
+    --size: 26px;
+    --checkbox-background-checked: var(--ion-color-primary);
+    --border-color-checked: var(--ion-color-primary);
+    --checkmark-color: white;
+    --border-radius: 6px;
+    margin-right: 20px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .task-content {
+    flex: 1;
+    
+    &.completed {
+      opacity: 0.5;
+      
+      h2 {
+        text-decoration: line-through;
+        color: var(--ion-color-medium);
+      }
+      
+      p {
+        color: var(--ion-color-medium);
+      }
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: var(--ion-text-color);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--ion-color-medium);
+      margin: 0 0 12px 0;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+
+      .category-badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: var(--accenture-radius-sm);
+        color: white !important;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        text-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.7),
+          0 0 4px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(2px);
+        
+        // Enhanced shadow with color-specific glow
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.4),
+          0 1px 3px rgba(0, 0, 0, 0.3),
+          0 0 12px rgba(var(--badge-glow-color, 255, 255, 255), 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        // Diffused gradient overlay for depth
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.1) 30%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(0, 0, 0, 0.05) 70%,
+            rgba(0, 0, 0, 0.15) 100%
+          );
+          pointer-events: none;
+          z-index: 1;
+        }
+        
+        // Enhanced background with better saturation and contrast
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: inherit;
+          filter:
+            saturate(1.4)
+            brightness(1.15)
+            contrast(1.1)
+            hue-rotate(2deg);
+          z-index: -1;
+        }
+        
+        // Color-specific enhancements for better visibility
+        &[style*="rgb(45, 211, 111)"] { // Green category
+          --badge-glow-color: 45, 211, 111;
+          filter: drop-shadow(0 0 6px rgba(45, 211, 111, 0.4));
+        }
+        
+        &[style*="rgb(236, 72, 153)"] { // Pink category
+          --badge-glow-color: 236, 72, 153;
+          filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.4));
+        }
+        
+        &[style*="rgb(59, 130, 246)"] { // Blue category
+          --badge-glow-color: 59, 130, 246;
+          filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.4));
+        }
+        
+        &[style*="rgb(245, 158, 11)"] { // Orange category
+          --badge-glow-color: 245, 158, 11;
+          filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+        }
+        
+        &[style*="rgb(139, 69, 19)"] { // Brown category
+          --badge-glow-color: 139, 69, 19;
+          filter: drop-shadow(0 0 6px rgba(139, 69, 19, 0.4));
+        }
+        
+        // Enhanced hover effect with pulsing glow
+        &:hover {
+          transform: translateY(-1px) scale(1.02);
+          box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.5),
+            0 2px 8px rgba(0, 0, 0, 0.4),
+            0 0 20px rgba(var(--badge-glow-color, 255, 255, 255), 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+          filter:
+            saturate(1.6)
+            brightness(1.25)
+            contrast(1.2)
+            drop-shadow(0 0 8px rgba(var(--badge-glow-color, 255, 255, 255), 0.6));
+          
+          &::before {
+            background: linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.4) 0%,
+              rgba(255, 255, 255, 0.15) 30%,
+              rgba(255, 255, 255, 0.08) 50%,
+              rgba(0, 0, 0, 0.03) 70%,
+              rgba(0, 0, 0, 0.1) 100%
+            );
+          }
+        }
+        
+        // Subtle animation for visual appeal
+        animation: subtleGlow 3s ease-in-out infinite alternate;
+      }
+
+      .task-date {
+        font-size: 11px;
+        color: var(--ion-color-medium);
+        font-weight: 500;
+        opacity: 0.8;
+        letter-spacing: 0.025em;
+      }
+    }
+  }
+
+  ion-button {
+    --color: var(--ion-color-danger);
+    --padding-start: 12px;
+    --padding-end: 12px;
+    margin-left: 12px;
+    border-radius: var(--accenture-radius-sm);
+    transition: all 0.3s ease;
+
+    &:hover {
+      --background: rgba(240, 65, 65, 0.1);
+      transform: scale(1.1);
+    }
+
+    ion-icon {
+      font-size: 22px;
+    }
+  }
+}
+
+// Empty state with Lottie animation
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
   text-align: center;
+  min-height: 55vh;
+  animation: fadeInUp 0.6s ease-out;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  .empty-state-animation {
+    margin-bottom: 32px;
+    filter: drop-shadow(0 0 20px rgba(161, 0, 255, 0.3));
+    
+    // Add subtle pulsing effect to the animation container
+    animation: subtlePulse 4s ease-in-out infinite;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ion-text-color);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--ion-color-medium);
+    margin: 0 0 40px 0;
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 320px;
+  }
+
+  .cta-button {
+    --border-radius: var(--accenture-radius-md);
+    --padding-start: 32px;
+    --padding-end: 32px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --background: var(--accenture-gradient-primary);
+    --color: white;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.025em;
+    box-shadow: var(--accenture-shadow-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    // Shimmer effect on hover
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(161, 0, 255, 0.6);
+      
+      &::before {
+        left: 100%;
+      }
+    }
+
+    ion-icon {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+// Subtle pulse animation for the Lottie container
+@keyframes subtlePulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(161, 0, 255, 0.3));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 25px rgba(161, 0, 255, 0.5));
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// Floating Action Button with Accenture styling
+ion-fab {
+  ion-fab-button {
+    --background: var(--accenture-gradient-primary);
+    --color: white;
+    --box-shadow: var(--accenture-shadow-primary);
+    --border-radius: var(--accenture-radius-lg);
+    width: 64px;
+    height: 64px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  color: #8c8c8c;
+    &:hover {
+      --box-shadow: 0 12px 40px rgba(161, 0, 255, 0.7);
+      transform: translateY(-4px) scale(1.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-  margin: 0;
+    &:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    ion-icon {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
 }
 
-#container a {
-  text-decoration: none;
+// Enhanced animations for better UX
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+// Loading shimmer effect
+.loading-shimmer {
+  background: linear-gradient(90deg, var(--ion-color-step-100) 25%, var(--ion-color-step-200) 50%, var(--ion-color-step-100) 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+// Responsive design with enhanced mobile experience
+@media (max-width: 768px) {
+  .category-filter {
+    padding: 16px 12px;
+    
+    ion-segment {
+      padding: 3px;
+    }
+    
+    ion-segment-button {
+      --padding-start: 12px;
+      --padding-end: 12px;
+      min-height: 40px;
+
+      ion-label {
+        font-size: 13px;
+      }
+
+      ion-badge {
+        font-size: 10px;
+        margin-left: 6px;
+        padding: 3px 6px;
+      }
+    }
+  }
+
+  .task-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 80px;
+    margin: 0 12px 12px 12px;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    .task-content {
+      h2 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+
+      .task-meta {
+        gap: 10px;
+
+        .category-badge {
+          font-size: 9px;
+          padding: 4px 8px;
+        }
+
+        .task-date {
+          font-size: 10px;
+        }
+      }
+    }
+
+    ion-button {
+      --padding-start: 8px;
+      --padding-end: 8px;
+
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .empty-state {
+    padding: 60px 24px;
+    min-height: 45vh;
+
+    ion-icon {
+      font-size: 3rem;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 15px;
+      max-width: 280px;
+    }
+
+    ion-button {
+      --padding-start: 24px;
+      --padding-end: 24px;
+      --padding-top: 14px;
+      --padding-bottom: 14px;
+      font-size: 14px;
+    }
+  }
+
+  ion-fab {
+    ion-fab-button {
+      width: 56px;
+      height: 56px;
+
+      &:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      ion-icon {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+// Extra small devices
+@media (max-width: 480px) {
+  .category-filter {
+    padding: 12px 8px;
+    
+    ion-segment-button {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      min-height: 36px;
+
+      ion-label {
+        font-size: 12px;
+      }
+
+      ion-badge {
+        font-size: 9px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .task-item {
+    margin: 0 8px 10px 8px;
+    --padding-start: 14px;
+    --padding-end: 14px;
+  }
+}
+// Keyframe for subtle glow animation on category badges
+@keyframes subtleGlow {
+  0% {
+    filter: 
+      saturate(1.4) 
+      brightness(1.15) 
+      contrast(1.1)
+      drop-shadow(0 0 6px rgba(var(--badge-glow-color, 255, 255, 255), 0.3));
+  }
+  100% {
+    filter: 
+      saturate(1.5) 
+      brightness(1.2) 
+      contrast(1.15)
+      drop-shadow(0 0 8px rgba(var(--badge-glow-color, 255, 255, 255), 0.5));
+  }
 }

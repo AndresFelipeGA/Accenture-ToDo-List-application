@@ -1,0 +1,222 @@
+// Task form modal with elegant Accenture styling
+// Following clean code principles: KISS (Keep It Simple, Stupid)
+
+// Modal with subtle elegance
+:host {
+  --backdrop-opacity: 0.4;
+}
+
+.modal-content {
+  background: var(--ion-color-step-50);
+  color: var(--ion-text-color);
+  border-radius: var(--accenture-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--accenture-shadow-lg);
+  border: 1px solid rgba(161, 0, 255, 0.1);
+}
+
+// Clean header design
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-step-50);
+    --color: var(--ion-text-color);
+    border-bottom: 1px solid var(--ion-color-step-150);
+
+    ion-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      color: var(--ion-text-color);
+    }
+
+    ion-button {
+      --color: var(--ion-color-primary);
+      font-weight: 600;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        --color: var(--ion-color-primary-shade);
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-text-color);
+}
+
+// Elegant form items
+ion-item {
+  --border-radius: var(--accenture-radius-md);
+  --background: var(--ion-color-step-100);
+  --color: var(--ion-text-color);
+  --border-color: var(--ion-color-step-200);
+  --inner-border-width: 0;
+  margin-bottom: 20px;
+  border: 1px solid var(--ion-color-step-200);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &.item-has-focus {
+    --border-color: var(--ion-color-primary);
+    --background: var(--ion-color-step-150);
+    border-color: var(--ion-color-primary);
+    box-shadow: 0 0 0 2px rgba(161, 0, 255, 0.1);
+  }
+
+  &:hover {
+    --background: var(--ion-color-step-150);
+    border-color: var(--ion-color-step-300);
+  }
+
+  ion-label {
+    font-weight: 600;
+    color: var(--ion-text-color);
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+}
+
+// Clean input styling
+ion-input, ion-textarea {
+  --color: var(--ion-text-color);
+  --placeholder-color: var(--ion-color-medium);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-size: 16px;
+}
+
+ion-textarea {
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  min-height: 100px;
+}
+
+// Select styling
+ion-select {
+  --placeholder-color: var(--ion-color-medium);
+  --color: var(--ion-text-color);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-size: 16px;
+
+  &::part(icon) {
+    color: var(--ion-color-primary);
+  }
+}
+
+// Elegant button styling
+ion-button {
+  margin-top: 16px;
+  --border-radius: var(--accenture-radius-md);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  height: 48px;
+  
+  &[fill="solid"] {
+    --background: var(--ion-color-primary);
+    --color: white;
+    box-shadow: 0 4px 12px rgba(161, 0, 255, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(161, 0, 255, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      transform: none;
+      box-shadow: 0 2px 6px rgba(161, 0, 255, 0.2);
+    }
+  }
+
+  &[fill="clear"] {
+    --color: var(--ion-color-medium);
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    &:hover {
+      --color: var(--ion-text-color);
+      --background: rgba(161, 0, 255, 0.05);
+    }
+  }
+}
+
+// Button container
+.button-container {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ion-color-step-200);
+
+  ion-button {
+    flex: 1;
+    margin: 0;
+  }
+}
+
+// Utility classes
+.ion-padding-top {
+  padding-top: 32px;
+}
+
+.ion-padding-bottom {
+  padding-bottom: 32px;
+}
+
+// Focus states for accessibility
+ion-input:focus-within,
+ion-textarea:focus-within,
+ion-select:focus-within {
+  ion-item {
+    --border-color: var(--ion-color-primary);
+    box-shadow: 0 0 0 2px rgba(161, 0, 255, 0.1);
+  }
+}
+
+// Simple modal animation
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content {
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  ion-item {
+    margin-bottom: 16px;
+  }
+
+  .button-container {
+    margin-top: 24px;
+    padding-top: 20px;
+    flex-direction: column;
+
+    ion-button {
+      width: 100%;
+    }
+  }
+
+  ion-input, ion-textarea, ion-select {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    font-size: 16px; // Prevent zoom on iOS
+  }
+}

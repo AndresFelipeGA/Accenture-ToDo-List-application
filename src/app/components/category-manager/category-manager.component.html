@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestionar Categorías</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Lista de categorías -->
+  <ion-list *ngIf="categories.length > 0; else noCategories">
+    <ion-item *ngFor="let category of categories" class="category-item">
+      <div class="category-color" [style.background-color]="category.color" slot="start"></div>
+      
+      <ion-label>
+        <h2>{{ category.name }}</h2>
+        <p>Creada el {{ category.createdAt | date:'short' }}</p>
+      </ion-label>
+      
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        color="primary" 
+        (click)="editCategory(category)">
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <ion-button 
+        slot="end" 
+        fill="clear" 
+        color="danger" 
+        (click)="deleteCategory(category)">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Estado vacío -->
+  <ng-template #noCategories>
+    <div class="empty-state">
+      <ion-icon name="add" size="large"></ion-icon>
+      <h2>No hay categorías</h2>
+      <p>Crea tu primera categoría para organizar mejor tus tareas</p>
+      <ion-button (click)="addCategory()" fill="outline">
+        <ion-icon name="add" slot="start"></ion-icon>
+        Crear Categoría
+      </ion-button>
+    </div>
+  </ng-template>
+
+  <!-- Botón flotante para agregar categorías -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addCategory()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

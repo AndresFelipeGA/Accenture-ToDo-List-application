@@ -35,3 +35,202 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/**
+ * Accenture Corporate Styling
+ * -----------------------------------------------------
+ * Global styles following clean code principles
+ */
+
+// Base body styling for Accenture theme
+body {
+  background: var(--ion-background-color);
+  color: var(--ion-text-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// Smooth transitions for all interactive elements (consistent UX)
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+// Enhanced scrollbar styling for dark theme
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ion-color-step-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ion-color-step-300);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--ion-color-step-400);
+  }
+}
+
+// Ionic component overrides for Accenture theme
+ion-content {
+  --background: var(--ion-background-color);
+}
+
+ion-toolbar {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-text-color);
+  --border-color: var(--ion-color-step-150);
+}
+
+ion-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+// Button enhancements
+ion-button {
+  --border-radius: var(--accenture-radius-md);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  
+  &[fill="solid"] {
+    --background: var(--accenture-gradient-primary);
+    --color: white;
+    box-shadow: var(--accenture-shadow-sm);
+    
+    &:hover {
+      box-shadow: var(--accenture-shadow-md);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Input and form styling
+ion-item {
+  --background: var(--ion-color-step-50);
+  --border-color: var(--ion-color-step-200);
+  --color: var(--ion-text-color);
+  
+  &.item-has-focus {
+    --border-color: var(--ion-color-primary);
+  }
+}
+
+ion-input, ion-textarea, ion-select {
+  --color: var(--ion-text-color);
+  --placeholder-color: var(--ion-color-medium);
+}
+
+// Modal styling
+ion-modal {
+  --background: var(--ion-color-step-50);
+  --color: var(--ion-text-color);
+}
+
+// Toast styling
+ion-toast {
+  --background: var(--ion-color-step-100);
+  --color: var(--ion-text-color);
+  --border-radius: var(--accenture-radius-md);
+}
+
+// Alert styling
+ion-alert {
+  --background: var(--ion-color-step-100);
+  --color: var(--ion-text-color);
+}
+
+// Segment styling for better Accenture look
+ion-segment {
+  --background: var(--ion-color-step-100);
+  border-radius: var(--accenture-radius-md);
+  padding: 4px;
+}
+
+ion-segment-button {
+  --background-checked: var(--accenture-gradient-primary);
+  --color-checked: white;
+  --border-radius: var(--accenture-radius-sm);
+  font-weight: 600;
+  
+  &.segment-button-checked {
+    box-shadow: var(--accenture-shadow-sm);
+  }
+}
+
+// Badge styling
+ion-badge {
+  --background: var(--ion-color-primary);
+  --color: white;
+  font-weight: 600;
+  border-radius: var(--accenture-radius-sm);
+}
+
+// Checkbox styling
+ion-checkbox {
+  --background-checked: var(--ion-color-primary);
+  --border-color-checked: var(--ion-color-primary);
+  --checkmark-color: white;
+}
+
+// Loading spinner
+ion-loading {
+  --background: var(--ion-color-step-100);
+  --color: var(--ion-text-color);
+  --spinner-color: var(--ion-color-primary);
+}
+
+// Utility classes for consistent styling
+.text-gradient {
+  background: var(--accenture-gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.surface-card {
+  background: var(--accenture-gradient-surface);
+  border: 1px solid rgba(161, 0, 255, 0.2);
+  border-radius: var(--accenture-radius-lg);
+  box-shadow: var(--accenture-shadow-md);
+}
+
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--accenture-shadow-lg);
+  }
+}
+
+// Animation keyframes for smooth interactions
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.pulse-on-hover {
+  &:hover {
+    animation: pulse 0.6s ease-in-out;
+  }
+}

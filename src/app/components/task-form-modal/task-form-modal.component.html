@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nueva Tarea</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Título de la tarea *</ion-label>
+    <ion-input 
+      [(ngModel)]="title" 
+      placeholder="Ingresa el título"
+      required>
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Descripción (opcional)</ion-label>
+    <ion-textarea 
+      [(ngModel)]="description" 
+      placeholder="Ingresa la descripción"
+      rows="3">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item *ngIf="categories.length > 0">
+    <ion-label position="stacked">Categoría (opcional)</ion-label>
+    <ion-select 
+      [(ngModel)]="selectedCategoryId" 
+      placeholder="Seleccionar categoría"
+      interface="popover">
+      <ion-select-option value="">Sin categoría</ion-select-option>
+      <ion-select-option 
+        *ngFor="let category of categories" 
+        [value]="category.id">
+        {{ category.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="ion-padding-top">
+    <ion-button 
+      expand="block" 
+      (click)="save()" 
+      [disabled]="!title.trim()">
+      Crear Tarea
+    </ion-button>
+    
+    <ion-button 
+      expand="block" 
+      fill="clear" 
+      (click)="dismiss()">
+      Cancelar
+    </ion-button>
+  </div>
+</ion-content>

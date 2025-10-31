@@ -1,20 +1,98 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      To-Do
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="openCategoryManager()">
+        <ion-icon name="settings" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">To-Do</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Filtro por categorías -->
+  <div class="category-filter">
+    <ion-segment [(ngModel)]="selectedCategoryId" (ionChange)="onCategoryChange($event)">
+      <ion-segment-button value="all">
+        <ion-label>Todas</ion-label>
+        <ion-badge>{{ tasks.length }}</ion-badge>
+      </ion-segment-button>
+      <ion-segment-button *ngFor="let category of categories" [value]="category.id">
+        <ion-label>{{ category.name }}</ion-label>
+        <ion-badge [style.background-color]="category.color">
+          {{ (tasks | filter: 'categoryId': category.id).length }}
+        </ion-badge>
+      </ion-segment-button>
+    </ion-segment>
   </div>
+
+  <!-- Lista de tareas -->
+  <ion-list *ngIf="filteredTasks.length > 0; else noTasks">
+    <ion-item *ngFor="let task of filteredTasks" class="task-item">
+      <ion-checkbox
+        slot="start"
+        [checked]="task.completed"
+        (ionChange)="toggleTaskCompletion(task)">
+      </ion-checkbox>
+      
+      <ion-label class="task-content" [class.completed]="task.completed">
+        <h2>{{ task.title }}</h2>
+        <p *ngIf="task.description">{{ task.description }}</p>
+        <div class="task-meta">
+          <ion-badge
+            *ngIf="task.categoryId"
+            [style.background-color]="getCategoryColor(task.categoryId)"
+            class="category-badge">
+            {{ getCategoryName(task.categoryId) }}
+          </ion-badge>
+          <span class="task-date">{{ task.createdAt | date:'short' }}</span>
+        </div>
+      </ion-label>
+      
+      <ion-button
+        slot="end"
+        fill="clear"
+        color="danger"
+        (click)="deleteTask(task)">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Estado vacío con animación Lottie -->
+  <ng-template #noTasks>
+    <div class="empty-state">
+      <div class="empty-state-animation">
+        <app-lottie-animation
+          animationType="loading"
+          width="120px"
+          height="120px"
+          [loop]="true"
+          [autoplay]="true">
+        </app-lottie-animation>
+      </div>
+      <h2>No hay tareas</h2>
+      <p *ngIf="selectedCategoryId === 'all'">¡Crea tu primera tarea y comienza a organizarte!</p>
+      <p *ngIf="selectedCategoryId !== 'all'">No hay tareas en esta categoría</p>
+      <ion-button (click)="addTask()" fill="solid" class="cta-button">
+        <ion-icon name="add" slot="start"></ion-icon>
+        Agregar Tarea
+      </ion-button>
+    </div>
+  </ng-template>
+
+  <!-- Botón flotante para agregar tareas -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addTask()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
