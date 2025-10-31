@@ -59,7 +59,6 @@ export class LottieAnimationComponent implements OnInit, AfterViewInit, OnDestro
 
     let animationData = this.animationData;
 
-    // Use built-in animations if no custom data provided
     if (!animationData) {
       switch (this.animationType) {
         case 'checkmark':

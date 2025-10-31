@@ -1,101 +1,131 @@
-import { Injectable, inject, NgZone } from '@angular/core';
-import {
-  Firestore,
-  collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  orderBy,
-  Timestamp
-} from '@angular/fire/firestore';
-import { Observable, from, map, catchError, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Category, CreateCategoryRequest, UpdateCategoryRequest } from '../models/category.interface';
+import { CategoryRepository } from './storage/category-repository.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private readonly collectionName = 'categories';
-  private firestore = inject(Firestore);
-  private ngZone = inject(NgZone);
 
-  constructor() {
-    // Service initialized - ready for operations
-  }
+  constructor(private categoryRepository: CategoryRepository) {}
 
   private logError(operation: string, error: any): void {
-    // Error handling without console output - check browser dev tools if needed
+    console.error(`[CategoryService] ${operation} failed:`, error);
   }
 
-  // Crear nueva categoría
+  private logDebug(operation: string, message: string): void {
+    console.log(`[CategoryService DEBUG] ${operation}: ${message}`);
+  }
+
   createCategory(categoryData: CreateCategoryRequest): Observable<string> {
-    const categoriesCollection = collection(this.firestore, this.collectionName);
-    const now = Timestamp.now();
-    
-    const newCategory = {
-      ...categoryData,
-      createdAt: now,
-      updatedAt: now
-    };
+    if (!categoryData.name?.trim()) {
+      throw new Error('Category name is required');
+    }
 
-    return from(this.ngZone.runOutsideAngular(() => addDoc(categoriesCollection, newCategory))).pipe(
-      map(docRef => docRef.id),
-      catchError(error => {
-        this.logError('createCategory', error);
-        throw error;
-      })
-    );
+    if (!categoryData.color?.trim()) {
+      throw new Error('Category color is required');
+    }
+
+    const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    if (!hexColorRegex.test(categoryData.color)) {
+      throw new Error('Category color must be a valid hex color');
+    }
+
+    return this.categoryRepository.createCategory({
+      name: categoryData.name.trim(),
+      color: categoryData.color.toLowerCase()
+    });
   }
 
-  // Obtener todas las categorías
   getCategories(): Observable<Category[]> {
-    const categoriesCollection = collection(this.firestore, this.collectionName);
-    const categoriesQuery = query(categoriesCollection, orderBy('name', 'asc'));
+    return this.categoryRepository.getAllCategories();
+  }
+updateCategory(categoryId: string, updates: UpdateCategoryRequest): Observable<void> {
     
-    return from(this.ngZone.runOutsideAngular(() => getDocs(categoriesQuery))).pipe(
-      map(snapshot => {
-        const categories = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: doc.data()['createdAt'].toDate(),
-          updatedAt: doc.data()['updatedAt'].toDate()
-        } as Category));
-        return categories;
-      }),
-      catchError(error => {
-        this.logError('getCategories', error);
-        return of([]);
-      })
-    );
+    if (!categoryId?.trim()) {
+      throw new Error('Category ID is required');
+    }
+
+    const cleanUpdates: UpdateCategoryRequest = {};
+    
+    if (updates.name !== undefined) {
+      if (!updates.name.trim()) {
+        throw new Error('Category name cannot be empty');
+      }
+      cleanUpdates.name = updates.name.trim();
+    }
+    
+    if (updates.color !== undefined) {
+      if (!updates.color.trim()) {
+        throw new Error('Category color cannot be empty');
+      }
+      
+      const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+      if (!hexColorRegex.test(updates.color)) {
+        throw new Error('Category color must be a valid hex color');
+      }
+      
+      cleanUpdates.color = updates.color.toLowerCase();
+    }
+
+    return this.categoryRepository.updateCategory(categoryId, cleanUpdates);
+  }
+deleteCategory(categoryId: string): Observable<void> {
+    
+    if (!categoryId?.trim()) {
+      throw new Error('Category ID is required');
+    }
+
+    return this.categoryRepository.deleteCategory(categoryId);
+  }
+getCategoryByName(name: string): Observable<Category | null> {
+    
+    if (!name?.trim()) {
+      throw new Error('Category name is required');
+    }
+
+    return this.categoryRepository.getCategoryByName(name.trim());
+  }
+categoryNameExists(name: string, excludeId?: string): Observable<boolean> {
+    
+    if (!name?.trim()) {
+      return new Observable(observer => {
+        observer.next(false);
+        observer.complete();
+      });
+    }
+
+    return this.categoryRepository.categoryNameExists(name.trim(), excludeId);
+  }
+getCategoriesByColor(color: string): Observable<Category[]> {
+    
+    if (!color?.trim()) {
+      throw new Error('Color is required');
+    }
+
+    return this.categoryRepository.getCategoriesByColor(color.toLowerCase());
   }
 
-  // Actualizar categoría
-  updateCategory(categoryId: string, updates: UpdateCategoryRequest): Observable<void> {
-    const categoryDoc = doc(this.firestore, this.collectionName, categoryId);
-    const updateData = {
-      ...updates,
-      updatedAt: Timestamp.now()
-    };
-    
-    return from(this.ngZone.runOutsideAngular(() => updateDoc(categoryDoc, updateData))).pipe(
-      catchError(error => {
-        this.logError('updateCategory', error);
-        throw error;
-      })
-    );
+  getCategoryStats(): Observable<{ total: number; colors: { [color: string]: number } }> {
+    return this.categoryRepository.getCategoryStats();
   }
+getCategoryById(categoryId: string): Observable<Category | null> {
+    
+    if (!categoryId?.trim()) {
+      throw new Error('Category ID is required');
+    }
 
-  // Eliminar categoría
-  deleteCategory(categoryId: string): Observable<void> {
-    const categoryDoc = doc(this.firestore, this.collectionName, categoryId);
-    return from(this.ngZone.runOutsideAngular(() => deleteDoc(categoryDoc))).pipe(
-      catchError(error => {
-        this.logError('deleteCategory', error);
-        throw error;
-      })
-    );
+    return new Observable(observer => {
+      this.categoryRepository.getById(categoryId)
+        .then(category => {
+          observer.next(category);
+          observer.complete();
+        })
+        .catch(error => {
+          this.logError('getCategoryById', error);
+          observer.error(error);
+        });
+    });
   }
 }

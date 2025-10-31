@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Accenture-ToDo-List</string>
+    <string name="title_activity_main">Accenture-ToDo-List</string>
+    <string name="package_name">com.accenture.todolist</string>
+    <string name="custom_url_scheme">com.accenture.todolist</string>
+</resources>

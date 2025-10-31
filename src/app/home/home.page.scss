@@ -89,6 +89,154 @@
   }
 }
 
+// Firebase Remote Config Feature Flag Demo Section
+.feature-flag-demo {
+  margin: 0 16px 24px 16px;
+  border-radius: var(--accenture-radius-lg);
+  background: var(--accenture-gradient-surface);
+  border: 2px solid rgba(161, 0, 255, 0.2);
+  box-shadow: var(--accenture-shadow-md);
+  overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.5s ease-out;
+
+  // Animated gradient border for feature flag demo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accenture-gradient-primary);
+    opacity: 0.8;
+    animation: shimmerGlow 2s ease-in-out infinite alternate;
+  }
+
+  .demo-item {
+    --padding-start: 24px;
+    --padding-end: 24px;
+    --min-height: 80px;
+    --background: transparent;
+    --border-color: transparent;
+    margin: 0;
+    
+    ion-icon {
+      font-size: 24px;
+      margin-right: 16px;
+      transition: all 0.3s ease;
+      
+      &[color="primary"] {
+        filter: drop-shadow(0 0 8px rgba(161, 0, 255, 0.4));
+      }
+      
+      &[color="warning"] {
+        filter: drop-shadow(0 0 8px rgba(255, 206, 0, 0.4));
+      }
+    }
+
+    ion-label {
+      h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ion-text-color);
+        margin: 0 0 4px 0;
+        letter-spacing: -0.01em;
+        
+        // Gradient text effect for the demo title
+        background: var(--accenture-gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      p {
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        margin: 0 0 4px 0;
+        line-height: 1.4;
+        opacity: 0.9;
+      }
+
+      .config-status {
+        small {
+          font-size: 11px;
+          font-weight: 600;
+          color: var(--ion-color-primary);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 2px 8px;
+          background: rgba(161, 0, 255, 0.1);
+          border-radius: var(--accenture-radius-sm);
+          border: 1px solid rgba(161, 0, 255, 0.2);
+        }
+      }
+    }
+
+    ion-toggle {
+      --handle-width: 28px;
+      --handle-height: 28px;
+      --track-width: 56px;
+      --track-height: 32px;
+      --handle-spacing: 2px;
+      --border-radius: 16px;
+      --handle-border-radius: 14px;
+      margin-left: 16px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      // Custom styling for checked state
+      &.toggle-checked {
+        --background-checked: var(--ion-color-warning);
+        --handle-background-checked: #ffffff;
+        --border-color-checked: var(--ion-color-warning);
+        
+        ion-icon {
+          color: var(--ion-color-warning);
+        }
+      }
+
+      // Custom styling for unchecked state
+      &:not(.toggle-checked) {
+        --background: rgba(161, 0, 255, 0.2);
+        --handle-background: #ffffff;
+        --border-color: rgba(161, 0, 255, 0.3);
+      }
+    }
+  }
+
+  // Hover effect for the entire demo section
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(161, 0, 255, 0.4);
+    box-shadow: var(--accenture-shadow-lg);
+    
+    &::before {
+      opacity: 1;
+      height: 4px;
+    }
+    
+    .demo-item ion-icon {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Shimmer glow animation for the feature flag demo
+@keyframes shimmerGlow {
+  0% {
+    opacity: 0.6;
+    transform: scaleX(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 // Task items with Accenture corporate styling
 .task-item {
   --padding-start: 20px;

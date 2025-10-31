@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 
+// Base color palette (shared between themes)
 :root {
-  // Primary Purple
+  // Primary Purple (consistent across themes)
   --ion-color-primary: #A100FF;
   --ion-color-primary-rgb: 161, 0, 255;
   --ion-color-primary-contrast: #ffffff;
@@ -18,7 +19,7 @@
   --ion-color-secondary-shade: #5e3daa;
   --ion-color-secondary-tint: #7a59c7;
 
-  // Tertiary Pink 
+  // Tertiary Pink
   --ion-color-tertiary: #EC4899;
   --ion-color-tertiary-rgb: 236, 72, 153;
   --ion-color-tertiary-contrast: #ffffff;
@@ -26,7 +27,7 @@
   --ion-color-tertiary-shade: #d04087;
   --ion-color-tertiary-tint: #ee5aa3;
 
-    // Success Green
+  // Success Green
   --ion-color-success: #10DC60;
   --ion-color-success-rgb: 16, 220, 96;
   --ion-color-success-contrast: #ffffff;
@@ -50,15 +51,35 @@
   --ion-color-danger-shade: #d33939;
   --ion-color-danger-tint: #f25454;
 
-  // Dark theme colors 
-  --ion-color-dark: #0F0F0F;
-  --ion-color-dark-rgb: 15, 15, 15;
+  // Custom Accenture gradients (consistent across themes)
+  --accenture-gradient-primary: linear-gradient(135deg, #A100FF 0%, #EC4899 100%);
+  --accenture-gradient-secondary: linear-gradient(135deg, #6B46C1 0%, #A100FF 100%);
+  
+  // Border radius system (consistent sizing)
+  --accenture-radius-sm: 8px;
+  --accenture-radius-md: 12px;
+  --accenture-radius-lg: 16px;
+  --accenture-radius-xl: 20px;
+}
+
+// Light Theme (Default)
+body.light-theme {
+  // Background colors for light theme
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0, 0, 0;
+
+  // Dark color for light theme
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 36, 40;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #0d0d0d;
-  --ion-color-dark-tint: #272727;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
 
-  // Medium gray
+  // Medium gray for light theme
   --ion-color-medium: #92949C;
   --ion-color-medium-rgb: 146, 148, 156;
   --ion-color-medium-contrast: #ffffff;
@@ -66,7 +87,7 @@
   --ion-color-medium-shade: #808289;
   --ion-color-medium-tint: #9d9fa6;
 
-  // Light colors
+  // Light colors for light theme
   --ion-color-light: #F4F5F8;
   --ion-color-light-rgb: 244, 245, 248;
   --ion-color-light-contrast: #000000;
@@ -74,14 +95,69 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  // Background colors for Accenture dark theme
+  // Surface colors for light theme (inverted from dark)
+  --ion-color-step-50: #f9f9f9;
+  --ion-color-step-100: #f2f2f2;
+  --ion-color-step-150: #e6e6e6;
+  --ion-color-step-200: #d9d9d9;
+  --ion-color-step-250: #cccccc;
+  --ion-color-step-300: #bfbfbf;
+  --ion-color-step-350: #b3b3b3;
+  --ion-color-step-400: #a6a6a6;
+  --ion-color-step-450: #999999;
+  --ion-color-step-500: #8c8c8c;
+  --ion-color-step-550: #808080;
+  --ion-color-step-600: #737373;
+  --ion-color-step-650: #666666;
+  --ion-color-step-700: #595959;
+  --ion-color-step-750: #4d4d4d;
+  --ion-color-step-800: #404040;
+  --ion-color-step-850: #333333;
+  --ion-color-step-900: #262626;
+  --ion-color-step-950: #1a1a1a;
+
+  // Light theme specific gradients and shadows
+  --accenture-gradient-surface: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --accenture-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --accenture-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --accenture-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --accenture-shadow-primary: 0 8px 25px rgba(161, 0, 255, 0.25);
+}
+
+// Dark Theme
+body.dark-theme {
+  // Background colors for dark theme
   --ion-background-color: #0F0F0F;
   --ion-background-color-rgb: 15, 15, 15;
 
   --ion-text-color: #ffffff;
   --ion-text-color-rgb: 255, 255, 255;
 
-  // Surface colors for depth (following Material Design principles)
+  // Dark color for dark theme
+  --ion-color-dark: #0F0F0F;
+  --ion-color-dark-rgb: 15, 15, 15;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #0d0d0d;
+  --ion-color-dark-tint: #272727;
+
+  // Medium gray for dark theme
+  --ion-color-medium: #92949C;
+  --ion-color-medium-rgb: 146, 148, 156;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #808289;
+  --ion-color-medium-tint: #9d9fa6;
+
+  // Light colors for dark theme
+  --ion-color-light: #F4F5F8;
+  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  // Surface colors for dark theme
   --ion-color-step-50: #1A1A1A;
   --ion-color-step-100: #262626;
   --ion-color-step-150: #333333;
@@ -102,22 +178,12 @@
   --ion-color-step-900: #F2F2F2;
   --ion-color-step-950: #F9F9F9;
 
-  // Custom Accenture gradients (reusable)
-  --accenture-gradient-primary: linear-gradient(135deg, #A100FF 0%, #EC4899 100%);
-  --accenture-gradient-secondary: linear-gradient(135deg, #6B46C1 0%, #A100FF 100%);
+  // Dark theme specific gradients and shadows
   --accenture-gradient-surface: linear-gradient(135deg, #1A1A1A 0%, #262626 100%);
-  
-  // Shadow system (consistent elevation)
   --accenture-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
   --accenture-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.25);
   --accenture-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
   --accenture-shadow-primary: 0 8px 25px rgba(161, 0, 255, 0.4);
-  
-  // Border radius system (consistent sizing)
-  --accenture-radius-sm: 8px;
-  --accenture-radius-md: 12px;
-  --accenture-radius-lg: 16px;
-  --accenture-radius-xl: 20px;
 }
 
 // Typography system (following clean code principles)

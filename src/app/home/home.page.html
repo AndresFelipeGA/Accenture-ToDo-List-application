@@ -4,6 +4,17 @@
       To-Do
     </ion-title>
     <ion-buttons slot="end">
+      <!-- Theme Toggle - Firebase Remote Config Feature Flag Demo -->
+      <ion-button fill="clear" (click)="showRemoteConfigInfo()" class="theme-info-button">
+        <ion-icon [name]="isDarkMode ? 'moon' : 'sunny'" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <!-- Refresh Remote Config Button -->
+      <ion-button fill="clear" (click)="refreshRemoteConfig()" class="refresh-config-button">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+      
+      <!-- Settings Button -->
       <ion-button fill="clear" (click)="openCategoryManager()">
         <ion-icon name="settings" slot="icon-only"></ion-icon>
       </ion-button>
@@ -32,6 +43,26 @@
         </ion-badge>
       </ion-segment-button>
     </ion-segment>
+  </div>
+
+  <!-- Firebase Remote Config Feature Flag Demo Section -->
+  <div class="feature-flag-demo">
+    <ion-item lines="none" class="demo-item">
+      <ion-icon [name]="isDarkMode ? 'moon' : 'sunny'" slot="start" [color]="isDarkMode ? 'warning' : 'primary'"></ion-icon>
+      <ion-label>
+        <h3>🚀 Firebase Remote Config Demo</h3>
+        <p>Tema controlado por feature flag</p>
+        <p class="config-status">
+          <small>Estado: {{ isRemoteConfigInitialized ? 'Conectado' : 'Modo local' }}</small>
+        </p>
+      </ion-label>
+      <ion-toggle
+        slot="end"
+        [checked]="isDarkMode"
+        (ionChange)="onThemeToggle($event)"
+        [color]="isDarkMode ? 'warning' : 'primary'">
+      </ion-toggle>
+    </ion-item>
   </div>
 
   <!-- Lista de tareas -->

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBjZYZzlh_Lrz21Bi8GIM3VJn9QEc3tjA",
+    apiKey: "AIzaSyBj2vzz1h_Lrz2lBi86IM3VJn9OEc3tjaA",
     authDomain: "accenture-todo-list.firebaseapp.com",
     projectId: "accenture-todo-list",
     storageBucket: "accenture-todo-list.firebasestorage.app",

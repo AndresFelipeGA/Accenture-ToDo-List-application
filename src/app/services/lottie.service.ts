@@ -9,13 +9,6 @@ export class LottieService {
 
   constructor() { }
 
-  /**
-   * Load and play a Lottie animation
-   * @param container - HTML element to render animation
-   * @param animationData - Lottie JSON data or URL
-   * @param options - Animation options
-   * @returns Animation instance
-   */
   loadAnimation(
     container: HTMLElement,
     animationData: any,
@@ -39,7 +32,6 @@ export class LottieService {
       ...defaultOptions
     });
 
-    // Store animation reference if name provided
     if (options.name) {
       this.animations.set(options.name, animation);
     }
@@ -47,9 +39,6 @@ export class LottieService {
     return animation;
   }
 
-  /**
-   * Load animation from URL
-   */
   loadAnimationFromUrl(
     container: HTMLElement,
     path: string,
@@ -80,16 +69,10 @@ export class LottieService {
     return animation;
   }
 
-  /**
-   * Get animation by name
-   */
   getAnimation(name: string): AnimationItem | undefined {
     return this.animations.get(name);
   }
 
-  /**
-   * Play animation
-   */
   play(name: string): void {
     const animation = this.animations.get(name);
     if (animation) {
@@ -97,9 +80,6 @@ export class LottieService {
     }
   }
 
-  /**
-   * Pause animation
-   */
   pause(name: string): void {
     const animation = this.animations.get(name);
     if (animation) {
@@ -107,9 +87,6 @@ export class LottieService {
     }
   }
 
-  /**
-   * Stop animation
-   */
   stop(name: string): void {
     const animation = this.animations.get(name);
     if (animation) {
@@ -117,9 +94,6 @@ export class LottieService {
     }
   }
 
-  /**
-   * Destroy animation and clean up
-   */
   destroy(name: string): void {
     const animation = this.animations.get(name);
     if (animation) {
@@ -128,9 +102,6 @@ export class LottieService {
     }
   }
 
-  /**
-   * Destroy all animations
-   */
   destroyAll(): void {
     this.animations.forEach((animation, name) => {
       animation.destroy();
@@ -138,9 +109,6 @@ export class LottieService {
     this.animations.clear();
   }
 
-  /**
-   * Create a simple checkmark animation for task completion
-   */
   createCheckmarkAnimation(): any {
     return {
       "v": "5.7.4",
@@ -209,9 +177,6 @@ export class LottieService {
     };
   }
 
-  /**
-   * Create a simple loading animation
-   */
   createLoadingAnimation(): any {
     return {
       "v": "5.7.4",
