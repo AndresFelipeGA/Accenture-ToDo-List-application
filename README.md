@@ -1,35 +1,34 @@
 # Accenture ToDo List
 
-## Compilar y Ejecutar la Aplicación
+Una aplicación de lista de tareas desarrollada con Ionic y Angular.
 
-### Prerrequisitos
+## Instalación
 
-**Para Android:**
-- Android Studio
-- Android SDK (API level 22+)
-- JDK 11+
-
-**Para iOS (solo macOS):**
-- Xcode 12+
-- CocoaPods
-
-### Instalación
-
-1. Instalar dependencias:
 ```bash
 npm install
 ```
 
-2. Construir la aplicación:
+## Desarrollo
+
+Ejecutar servidor de desarrollo:
+```bash
+npm start
+```
+
+La aplicación estará disponible en `http://localhost:4200`
+
+## Compilación
+
+### Web
 ```bash
 npm run build
 ```
 
 ### Android
 
-1. Sincronizar proyecto:
+1. Construir y sincronizar:
 ```bash
-npx cap sync android
+npm run build:android
 ```
 
 2. Abrir en Android Studio:
@@ -37,13 +36,11 @@ npx cap sync android
 npx cap open android
 ```
 
-3. Ejecutar en dispositivo/emulador desde Android Studio: Run > Run 'app'
-
 ### iOS
 
-1. Sincronizar proyecto:
+1. Construir y sincronizar:
 ```bash
-npx cap sync ios
+npm run build:ios
 ```
 
 2. Abrir en Xcode:
@@ -51,4 +48,10 @@ npx cap sync ios
 npx cap open ios
 ```
 
-3. Ejecutar en dispositivo/simulador desde Xcode: Product > Run
+## Tecnologías
+
+- Angular 20
+- Ionic 8
+- Capacitor 7
+- Firebase Remote Config
+- TypeScript

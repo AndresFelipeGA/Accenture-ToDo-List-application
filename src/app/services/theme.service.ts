@@ -19,13 +19,19 @@ export class ThemeService {
   }
 
   private initializeTheme(): void {
-    this.firebaseConfigService.darkModeEnabled$.subscribe(
-      (darkModeEnabled) => {
+    // Subscribe to dark mode changes from Firebase Remote Config
+    this.firebaseConfigService.getDarkModeEnabled().subscribe({
+      next: (darkModeEnabled) => {
         this.logDebug(`Remote Config dark mode changed: ${darkModeEnabled}`);
         this.setDarkMode(darkModeEnabled);
+      },
+      error: (error) => {
+        this.logError('Failed to subscribe to dark mode changes', error);
+        this.setDarkMode(false); // Default to light theme on error
       }
-    );
+    });
 
+    // Set initial dark mode state
     const initialDarkMode = this.firebaseConfigService.isDarkModeEnabled();
     this.setDarkMode(initialDarkMode);
   }
@@ -102,7 +108,7 @@ export class ThemeService {
    * Follows DRY principle
    */
   private logDebug(message: string): void {
-    console.log(`[ThemeService] ${message}`);
+    // Silent logging
   }
 
   /**
@@ -110,6 +116,6 @@ export class ThemeService {
    * Follows DRY principle and provides consistent error handling
    */
   private logError(message: string, error: any): void {
-    console.error(`[ThemeService] ${message}:`, error);
+    // Silent error logging
   }
 }
